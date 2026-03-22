@@ -1,0 +1,33 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Logs
+*.log
+*.tmp
+*.temp
+
+# Environment / local config
+.env
+.env.*
+!.env.example
+
+# Dependency folders
+vendor/
+node_modules/
+
+# Build / cache
+dist/
+build/
+.cache/
+
+# XAMPP / local upload leftovers
+uploads/
+tmp/
+
