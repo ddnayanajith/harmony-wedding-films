@@ -203,6 +203,8 @@ function youtubeThumbUrl($videoId)
         rel="stylesheet"
         href="assets/css/style.css"
     >
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.19/dist/lenis.css">
+    <script src="https://unpkg.com/lenis@1.3.19/dist/lenis.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
@@ -244,7 +246,7 @@ function youtubeThumbUrl($videoId)
     </header>
 
     <main>
-        <section class="hero-section">
+        <section class="hero-section" id="hero">
             <div class="hero-panel">
                 <video class="hero-panel-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
                     <source src="assets/videos/hero.mp4" type="video/mp4">
@@ -877,17 +879,37 @@ function youtubeThumbUrl($videoId)
             var reviewModalInitials = reviewModal ? reviewModal.querySelector("[data-review-modal-initials]") : null;
             var reviewCarousels = document.querySelectorAll("[data-review-carousel]");
             var portfolioGalleries = document.querySelectorAll("[data-portfolio-gallery]");
+            var lenis = typeof window.Lenis === "function"
+                ? new window.Lenis({
+                    autoRaf: true,
+                    anchors: true,
+                    smoothWheel: true,
+                    lerp: 0.08
+                })
+                : null;
+
+            window.__siteLenis = lenis;
 
             body.classList.add("is-loading");
+
+            if (lenis) {
+                lenis.stop();
+            }
 
             function hideSiteLoader() {
                 if (!siteLoader || siteLoader.classList.contains("is-hidden")) {
                     body.classList.remove("is-loading");
+                    if (lenis) {
+                        lenis.start();
+                    }
                     return;
                 }
 
                 siteLoader.classList.add("is-hidden");
                 body.classList.remove("is-loading");
+                if (lenis) {
+                    lenis.start();
+                }
             }
 
             if (heroVideo) {
@@ -1221,6 +1243,9 @@ function youtubeThumbUrl($videoId)
                 reviewModal.hidden = false;
                 body.classList.add("has-review-modal");
                 reviewModal.style.opacity = "1";
+                if (lenis) {
+                    lenis.stop();
+                }
             }
 
             function closeReviewModal() {
@@ -1230,6 +1255,9 @@ function youtubeThumbUrl($videoId)
 
                 reviewModal.hidden = true;
                 body.classList.remove("has-review-modal");
+                if (lenis && !body.classList.contains("is-loading")) {
+                    lenis.start();
+                }
             }
 
             document.querySelectorAll(".testimonial-card").forEach(function (card) {
