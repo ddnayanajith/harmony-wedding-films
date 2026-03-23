@@ -979,57 +979,66 @@ function youtubeThumbUrl($videoId)
                                 <div class="contact-form-grid">
                                     <label class="contact-field">
                                         <span>Name</span>
-                                        <input type="text" name="name" value="<?php echo htmlspecialchars($contactFormValues['name'], ENT_QUOTES, 'UTF-8'); ?>" autocomplete="name" placeholder="Your full name">
-                                        <small data-field-error-for="name" <?php echo !isset($contactFormErrors['name']) ? 'hidden' : ''; ?>>
-                                            <?php echo isset($contactFormErrors['name']) ? htmlspecialchars($contactFormErrors['name'], ENT_QUOTES, 'UTF-8') : ''; ?>
-                                        </small>
+                                        <div class="contact-control<?php echo isset($contactFormErrors['name']) ? ' has-error' : ''; ?>">
+                                            <input type="text" name="name" value="<?php echo htmlspecialchars($contactFormValues['name'], ENT_QUOTES, 'UTF-8'); ?>" autocomplete="name" placeholder="Your full name">
+                                            <small class="contact-field-error" data-field-error-for="name" hidden></small>
+                                        </div>
                                     </label>
 
                                     <label class="contact-field">
                                         <span>Email</span>
-                                        <input type="email" name="email" value="<?php echo htmlspecialchars($contactFormValues['email'], ENT_QUOTES, 'UTF-8'); ?>" autocomplete="email" placeholder="you@example.com">
-                                        <small data-field-error-for="email" <?php echo !isset($contactFormErrors['email']) ? 'hidden' : ''; ?>>
-                                            <?php echo isset($contactFormErrors['email']) ? htmlspecialchars($contactFormErrors['email'], ENT_QUOTES, 'UTF-8') : ''; ?>
-                                        </small>
+                                        <div class="contact-control<?php echo isset($contactFormErrors['email']) ? ' has-error' : ''; ?>">
+                                            <input type="email" name="email" value="<?php echo htmlspecialchars($contactFormValues['email'], ENT_QUOTES, 'UTF-8'); ?>" autocomplete="email" placeholder="you@example.com">
+                                            <small class="contact-field-error" data-field-error-for="email" hidden></small>
+                                        </div>
                                     </label>
 
                                     <label class="contact-field">
                                         <span>WhatsApp Number</span>
-                                        <input type="text" name="phone" value="<?php echo htmlspecialchars($contactFormValues['phone'], ENT_QUOTES, 'UTF-8'); ?>" autocomplete="tel" placeholder="077 123 4567">
+                                        <div class="contact-control">
+                                            <input type="text" name="phone" value="<?php echo htmlspecialchars($contactFormValues['phone'], ENT_QUOTES, 'UTF-8'); ?>" autocomplete="tel" placeholder="077 123 4567">
+                                            <small class="contact-field-error" data-field-error-for="phone" hidden></small>
+                                        </div>
                                     </label>
 
                                     <label class="contact-field contact-field-date">
                                         <span>Event Date</span>
-                                        <input type="date" name="wedding_date" value="<?php echo htmlspecialchars($contactFormValues['wedding_date'], ENT_QUOTES, 'UTF-8'); ?>">
+                                        <div class="contact-control contact-control-date">
+                                            <input type="date" name="wedding_date" value="<?php echo htmlspecialchars($contactFormValues['wedding_date'], ENT_QUOTES, 'UTF-8'); ?>">
+                                            <small class="contact-field-error" data-field-error-for="wedding_date" hidden></small>
+                                        </div>
                                     </label>
 
                                     <label class="contact-field">
                                         <span>Venue</span>
-                                        <input type="text" name="venue" value="<?php echo htmlspecialchars($contactFormValues['venue'], ENT_QUOTES, 'UTF-8'); ?>" placeholder="Venue or city">
+                                        <div class="contact-control">
+                                            <input type="text" name="venue" value="<?php echo htmlspecialchars($contactFormValues['venue'], ENT_QUOTES, 'UTF-8'); ?>" placeholder="Venue or city">
+                                            <small class="contact-field-error" data-field-error-for="venue" hidden></small>
+                                        </div>
                                     </label>
 
                                     <label class="contact-field">
                                         <span>Event Type</span>
-                                        <select name="event_type">
-                                            <option value="">Select one</option>
-                                            <option value="Pre-wedding" <?php echo $contactFormValues['event_type'] === 'Pre-wedding' ? 'selected' : ''; ?>>Pre-wedding</option>
-                                            <option value="Engagement" <?php echo $contactFormValues['event_type'] === 'Engagement' ? 'selected' : ''; ?>>Engagement</option>
-                                            <option value="Homecoming" <?php echo $contactFormValues['event_type'] === 'Homecoming' ? 'selected' : ''; ?>>Homecoming</option>
-                                            <option value="Other" <?php echo $contactFormValues['event_type'] === 'Other' ? 'selected' : ''; ?>>Other</option>
-                                        </select>
-                                        <small data-field-error-for="event_type" <?php echo !isset($contactFormErrors['event_type']) ? 'hidden' : ''; ?>>
-                                            <?php echo isset($contactFormErrors['event_type']) ? htmlspecialchars($contactFormErrors['event_type'], ENT_QUOTES, 'UTF-8') : ''; ?>
-                                        </small>
+                                        <div class="contact-control contact-control-select<?php echo isset($contactFormErrors['event_type']) ? ' has-error' : ''; ?>">
+                                            <select name="event_type">
+                                                <option value="">Select one</option>
+                                                <option value="Pre-wedding" <?php echo $contactFormValues['event_type'] === 'Pre-wedding' ? 'selected' : ''; ?>>Pre-wedding</option>
+                                                <option value="Engagement" <?php echo $contactFormValues['event_type'] === 'Engagement' ? 'selected' : ''; ?>>Engagement</option>
+                                                <option value="Homecoming" <?php echo $contactFormValues['event_type'] === 'Homecoming' ? 'selected' : ''; ?>>Homecoming</option>
+                                                <option value="Other" <?php echo $contactFormValues['event_type'] === 'Other' ? 'selected' : ''; ?>>Other</option>
+                                            </select>
+                                            <small class="contact-field-error" data-field-error-for="event_type" hidden></small>
+                                        </div>
                                     </label>
 
                                 </div>
 
                                 <label class="contact-field contact-field-full">
                                     <span>Message</span>
-                                    <textarea name="message" rows="6" placeholder="Tell us about your date, plans, and the kind of coverage you need."><?php echo htmlspecialchars($contactFormValues['message'], ENT_QUOTES, 'UTF-8'); ?></textarea>
-                                    <small data-field-error-for="message" <?php echo !isset($contactFormErrors['message']) ? 'hidden' : ''; ?>>
-                                        <?php echo isset($contactFormErrors['message']) ? htmlspecialchars($contactFormErrors['message'], ENT_QUOTES, 'UTF-8') : ''; ?>
-                                    </small>
+                                    <div class="contact-control contact-control-textarea<?php echo isset($contactFormErrors['message']) ? ' has-error' : ''; ?>">
+                                        <textarea name="message" rows="6" placeholder="Tell us about your date, plans, and the kind of coverage you need."><?php echo htmlspecialchars($contactFormValues['message'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+                                        <small class="contact-field-error" data-field-error-for="message" hidden></small>
+                                    </div>
                                 </label>
 
                                 <button class="button button-secondary contact-submit" type="submit" data-contact-submit>Send Inquiry</button>
@@ -1205,6 +1214,7 @@ function youtubeThumbUrl($videoId)
 
             function setContactFieldError(fieldName, message) {
                 var errorNode;
+                var controlNode;
 
                 if (!contactForm) {
                     return;
@@ -1218,6 +1228,11 @@ function youtubeThumbUrl($videoId)
 
                 errorNode.textContent = message || "";
                 errorNode.hidden = !message;
+                controlNode = errorNode.closest(".contact-control");
+
+                if (controlNode) {
+                    controlNode.classList.toggle("has-error", Boolean(message));
+                }
             }
 
             function clearContactFieldErrors() {
@@ -1228,10 +1243,43 @@ function youtubeThumbUrl($videoId)
                 contactForm.querySelectorAll("[data-field-error-for]").forEach(function (node) {
                     node.textContent = "";
                     node.hidden = true;
+                    if (node.closest(".contact-control")) {
+                        node.closest(".contact-control").classList.remove("has-error");
+                    }
                 });
             }
 
             if (contactForm) {
+                contactForm.querySelectorAll("input, select, textarea").forEach(function (field) {
+                    field.addEventListener("input", function () {
+                        var control = field.closest(".contact-control");
+                        var errorNode = contactForm.querySelector('[data-field-error-for="' + field.name + '"]');
+
+                        if (control) {
+                            control.classList.remove("has-error");
+                        }
+
+                        if (errorNode) {
+                            errorNode.textContent = "";
+                            errorNode.hidden = true;
+                        }
+                    });
+
+                    field.addEventListener("change", function () {
+                        var control = field.closest(".contact-control");
+                        var errorNode = contactForm.querySelector('[data-field-error-for="' + field.name + '"]');
+
+                        if (control) {
+                            control.classList.remove("has-error");
+                        }
+
+                        if (errorNode) {
+                            errorNode.textContent = "";
+                            errorNode.hidden = true;
+                        }
+                    });
+                });
+
                 contactForm.addEventListener("submit", function (event) {
                     var formData = new FormData(contactForm);
                     var originalButtonText = contactSubmitButton ? contactSubmitButton.textContent : "";

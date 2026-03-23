@@ -1757,7 +1757,7 @@ main > *:not(.review-modal),
     gap: 10px;
 }
 
-.contact-field-date {
+.contact-control {
     position: relative;
 }
 
@@ -1785,7 +1785,8 @@ main > *:not(.review-modal),
     appearance: none;
     transition:
         border-color 180ms ease,
-        background 180ms ease;
+        background 180ms ease,
+        color 180ms ease;
 }
 
 .contact-field textarea {
@@ -1803,21 +1804,34 @@ main > *:not(.review-modal),
 .contact-field select {
     min-height: 52px;
     padding-right: 48px;
-    background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23715c48' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 16px;
 }
 
-.contact-field-date::after {
+.contact-field select option {
+    color: var(--text-main);
+}
+
+.contact-control-select::after {
     content: "";
     position: absolute;
     right: 16px;
-    bottom: 16px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    background: no-repeat center / contain
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23715c48' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+.contact-control-date::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 50%;
     width: 18px;
     height: 18px;
     pointer-events: none;
+    transform: translateY(-50%);
     background: no-repeat center / contain
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23715c48' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2.5'/%3E%3Cpath d='M7.5 3.5v3'/%3E%3Cpath d='M16.5 3.5v3'/%3E%3Cpath d='M3.5 9.5h17'/%3E%3C/svg%3E");
     opacity: 0.82;
@@ -1845,9 +1859,30 @@ main > *:not(.review-modal),
     background: rgba(255, 252, 248, 0.68);
 }
 
-.contact-field small {
-    color: #8a5448;
-    font-size: 0.82rem;
+.contact-field-error {
+    display: none;
+}
+
+.contact-control.has-error input,
+.contact-control.has-error select,
+.contact-control.has-error textarea {
+    border-color: rgba(180, 85, 69, 0.65);
+}
+
+.contact-control.has-error input::placeholder,
+.contact-control.has-error textarea::placeholder {
+    color: #b45545;
+    opacity: 1;
+}
+
+.contact-control.has-error select {
+    color: #b45545;
+}
+
+.contact-control.has-error.contact-control-date::after,
+.contact-control.has-error.contact-control-select::after {
+    opacity: 1;
+    filter: saturate(0.9);
 }
 
 .contact-field-full {
