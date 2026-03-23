@@ -79,6 +79,12 @@ function sendInquiryEmail(array $config, string $replyName, string $replyEmail, 
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
+    $contactFormTrap = trim((string) ($_POST['company'] ?? ''));
+
+    if ($contactFormTrap !== '') {
+        $contactFormStatus = 'Your inquiry was sent. We will get back to you soon.';
+        $contactFormStatusType = 'success';
+    } else {
     foreach ($contactFormValues as $field => $value) {
         $contactFormValues[$field] = trim((string) ($_POST[$field] ?? ''));
     }
@@ -145,6 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
             ? 'Email sending is not configured yet. Please use phone, WhatsApp, or email for now.'
             : 'Please check the highlighted fields and try again.';
         $contactFormStatusType = 'error';
+    }
     }
 }
 $reviews = file_exists(__DIR__ . '/assets/data/reviews.php')
@@ -881,6 +888,10 @@ function youtubeThumbUrl($videoId)
 
                             <form class="contact-form" method="post" action="#contact" novalidate>
                                 <input type="hidden" name="contact_form" value="1">
+                                <label class="contact-honeypot" aria-hidden="true">
+                                    <span>Company</span>
+                                    <input type="text" name="company" tabindex="-1" autocomplete="off">
+                                </label>
 
                                 <div class="contact-form-grid">
                                     <label class="contact-field">
