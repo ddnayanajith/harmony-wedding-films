@@ -17,6 +17,7 @@ desktop.ini
 .env
 .env.*
 !.env.example
+config/mail.local.php
 
 # Dependency folders
 vendor/
@@ -30,4 +31,3 @@ build/
 # XAMPP / local upload leftovers
 uploads/
 tmp/
-

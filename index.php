@@ -1,4 +1,11 @@
 <?php
+require_once __DIR__ . '/lib/PHPMailer/src/Exception.php';
+require_once __DIR__ . '/lib/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/lib/PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\Exception as MailerException;
+use PHPMailer\PHPMailer\PHPMailer;
+
 $siteName = 'Harmony Wedding Films';
 $contactEmail = 'bookings@harmonyweddingfilms.com';
 $contactPhone = '078 762 0353';
@@ -6,7 +13,14 @@ $whatsAppNumber = '078 762 0353';
 $instagramHandle = '@harmony_wedding_films';
 $instagramUrl = 'https://www.instagram.com/harmony_wedding_films/';
 $facebookUrl = 'https://web.facebook.com/Harmonyproductionlk';
-$mailFrom = 'noreply@harmonyweddingfilms.com';
+$mailBaseConfig = file_exists(__DIR__ . '/config/mail.php')
+    ? require __DIR__ . '/config/mail.php'
+    : [];
+$mailLocalConfig = file_exists(__DIR__ . '/config/mail.local.php')
+    ? require __DIR__ . '/config/mail.local.php'
+    : [];
+$mailConfig = array_merge($mailBaseConfig, $mailLocalConfig);
+$mailFrom = (string) ($mailConfig['from_email'] ?? $contactEmail);
 $contactFormValues = [
     'name' => '',
     'email' => '',
@@ -19,6 +33,50 @@ $contactFormValues = [
 $contactFormErrors = [];
 $contactFormStatus = '';
 $contactFormStatusType = '';
+
+function isMailConfigReady(array $config): bool
+{
+    $required = ['host', 'port', 'encryption', 'username', 'password', 'from_email', 'to_email'];
+
+    foreach ($required as $key) {
+        if (!isset($config[$key]) || trim((string) $config[$key]) === '') {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function sendInquiryEmail(array $config, string $replyName, string $replyEmail, string $subject, string $body): bool
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = (string) $config['host'];
+        $mail->Port = (int) $config['port'];
+        $mail->SMTPAuth = true;
+        $mail->Username = (string) $config['username'];
+        $mail->Password = (string) $config['password'];
+        $mail->SMTPSecure = ((string) $config['encryption'] === 'ssl')
+            ? PHPMailer::ENCRYPTION_SMTPS
+            : PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->CharSet = 'UTF-8';
+        $mail->Timeout = (int) ($config['timeout'] ?? 15);
+        $mail->setFrom((string) $config['from_email'], (string) ($config['from_name'] ?? 'Website'));
+        $mail->addAddress((string) $config['to_email']);
+        $mail->addReplyTo($replyEmail, $replyName);
+        $mail->isHTML(false);
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        return $mail->send();
+    } catch (MailerException $exception) {
+        error_log('SMTP mail error: ' . $exception->getMessage());
+
+        return false;
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
     foreach ($contactFormValues as $field => $value) {
@@ -44,6 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
         $contactFormErrors['event_type'] = 'Please choose the event type.';
     }
 
+    if (!isMailConfigReady($mailConfig)) {
+        $contactFormErrors['mail'] = 'Email sending is not configured yet.';
+    }
+
     if (empty($contactFormErrors)) {
         $subject = 'New Wedding Inquiry - ' . $contactFormValues['name'];
         $bodyLines = [
@@ -60,18 +122,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
             $contactFormValues['message'],
         ];
 
-        $headers = [
-            'MIME-Version: 1.0',
-            'Content-Type: text/plain; charset=UTF-8',
-            'From: ' . $siteName . ' <' . $mailFrom . '>',
-            'Reply-To: ' . $contactFormValues['name'] . ' <' . $contactFormValues['email'] . '>',
-        ];
-
-        $sent = @mail(
-            $contactEmail,
+        $sent = sendInquiryEmail(
+            $mailConfig,
+            $contactFormValues['name'],
+            $contactFormValues['email'],
             $subject,
-            implode("\r\n", $bodyLines),
-            implode("\r\n", $headers)
+            implode("\r\n", $bodyLines)
         );
 
         if ($sent) {
@@ -85,7 +141,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
             $contactFormStatusType = 'error';
         }
     } else {
-        $contactFormStatus = 'Please check the highlighted fields and try again.';
+        $contactFormStatus = isset($contactFormErrors['mail'])
+            ? 'Email sending is not configured yet. Please use phone, WhatsApp, or email for now.'
+            : 'Please check the highlighted fields and try again.';
         $contactFormStatusType = 'error';
     }
 }
