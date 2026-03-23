@@ -1726,8 +1726,13 @@ main > *:not(.review-modal),
     border-radius: 0;
     background: rgba(255, 252, 248, 0.4);
     color: var(--text-main);
-    font: inherit;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.35;
     padding: 14px 16px;
+    -webkit-appearance: none;
+    appearance: none;
     transition:
         border-color 180ms ease,
         background 180ms ease;
@@ -1740,9 +1745,19 @@ main > *:not(.review-modal),
 
 
 .contact-field input[type="date"] {
-    min-height: 50px;
+    min-height: 52px;
     padding-right: 48px;
     color-scheme: light;
+}
+
+.contact-field select {
+    min-height: 52px;
+    padding-right: 48px;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23715c48' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
 }
 
 .contact-field-date::after {
