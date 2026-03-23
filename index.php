@@ -33,6 +33,7 @@ $contactFormValues = [
 $contactFormErrors = [];
 $contactFormStatus = '';
 $contactFormStatusType = '';
+$isAjaxRequest = strtolower((string) ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '')) === 'xmlhttprequest';
 
 function isMailConfigReady(array $config): bool
 {
@@ -76,6 +77,18 @@ function sendInquiryEmail(array $config, string $replyName, string $replyEmail, 
 
         return false;
     }
+}
+
+function respondContactFormJson(string $status, string $statusType, array $errors = []): void
+{
+    header('Content-Type: application/json; charset=UTF-8');
+    echo json_encode([
+        'ok' => $statusType === 'success',
+        'status' => $status,
+        'statusType' => $statusType,
+        'errors' => $errors,
+    ]);
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
@@ -152,6 +165,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
             : 'Please check the highlighted fields and try again.';
         $contactFormStatusType = 'error';
     }
+    }
+
+    if ($isAjaxRequest) {
+        respondContactFormJson($contactFormStatus, $contactFormStatusType, $contactFormErrors);
     }
 }
 $reviews = file_exists(__DIR__ . '/assets/data/reviews.php')
@@ -944,13 +961,15 @@ function youtubeThumbUrl($videoId)
                         </div>
 
                         <div class="contact-form-shell">
-                            <?php if ($contactFormStatus !== ''): ?>
-                                <p class="contact-form-status contact-form-status-<?php echo htmlspecialchars($contactFormStatusType, ENT_QUOTES, 'UTF-8'); ?>">
-                                    <?php echo htmlspecialchars($contactFormStatus, ENT_QUOTES, 'UTF-8'); ?>
-                                </p>
-                            <?php endif; ?>
+                            <p
+                                class="contact-form-status<?php echo $contactFormStatus !== '' ? ' contact-form-status-' . htmlspecialchars($contactFormStatusType, ENT_QUOTES, 'UTF-8') : ''; ?>"
+                                data-contact-form-status
+                                <?php echo $contactFormStatus === '' ? 'hidden' : ''; ?>
+                            >
+                                <?php echo htmlspecialchars($contactFormStatus, ENT_QUOTES, 'UTF-8'); ?>
+                            </p>
 
-                            <form class="contact-form" method="post" action="#contact" novalidate>
+                            <form class="contact-form" method="post" action="#contact" novalidate data-contact-form>
                                 <input type="hidden" name="contact_form" value="1">
                                 <label class="contact-honeypot" aria-hidden="true">
                                     <span>Company</span>
@@ -961,17 +980,17 @@ function youtubeThumbUrl($videoId)
                                     <label class="contact-field">
                                         <span>Name</span>
                                         <input type="text" name="name" value="<?php echo htmlspecialchars($contactFormValues['name'], ENT_QUOTES, 'UTF-8'); ?>" autocomplete="name" placeholder="Your full name">
-                                        <?php if (isset($contactFormErrors['name'])): ?>
-                                            <small><?php echo htmlspecialchars($contactFormErrors['name'], ENT_QUOTES, 'UTF-8'); ?></small>
-                                        <?php endif; ?>
+                                        <small data-field-error-for="name" <?php echo !isset($contactFormErrors['name']) ? 'hidden' : ''; ?>>
+                                            <?php echo isset($contactFormErrors['name']) ? htmlspecialchars($contactFormErrors['name'], ENT_QUOTES, 'UTF-8') : ''; ?>
+                                        </small>
                                     </label>
 
                                     <label class="contact-field">
                                         <span>Email</span>
                                         <input type="email" name="email" value="<?php echo htmlspecialchars($contactFormValues['email'], ENT_QUOTES, 'UTF-8'); ?>" autocomplete="email" placeholder="you@example.com">
-                                        <?php if (isset($contactFormErrors['email'])): ?>
-                                            <small><?php echo htmlspecialchars($contactFormErrors['email'], ENT_QUOTES, 'UTF-8'); ?></small>
-                                        <?php endif; ?>
+                                        <small data-field-error-for="email" <?php echo !isset($contactFormErrors['email']) ? 'hidden' : ''; ?>>
+                                            <?php echo isset($contactFormErrors['email']) ? htmlspecialchars($contactFormErrors['email'], ENT_QUOTES, 'UTF-8') : ''; ?>
+                                        </small>
                                     </label>
 
                                     <label class="contact-field">
@@ -998,9 +1017,9 @@ function youtubeThumbUrl($videoId)
                                             <option value="Homecoming" <?php echo $contactFormValues['event_type'] === 'Homecoming' ? 'selected' : ''; ?>>Homecoming</option>
                                             <option value="Other" <?php echo $contactFormValues['event_type'] === 'Other' ? 'selected' : ''; ?>>Other</option>
                                         </select>
-                                        <?php if (isset($contactFormErrors['event_type'])): ?>
-                                            <small><?php echo htmlspecialchars($contactFormErrors['event_type'], ENT_QUOTES, 'UTF-8'); ?></small>
-                                        <?php endif; ?>
+                                        <small data-field-error-for="event_type" <?php echo !isset($contactFormErrors['event_type']) ? 'hidden' : ''; ?>>
+                                            <?php echo isset($contactFormErrors['event_type']) ? htmlspecialchars($contactFormErrors['event_type'], ENT_QUOTES, 'UTF-8') : ''; ?>
+                                        </small>
                                     </label>
 
                                 </div>
@@ -1008,12 +1027,12 @@ function youtubeThumbUrl($videoId)
                                 <label class="contact-field contact-field-full">
                                     <span>Message</span>
                                     <textarea name="message" rows="6" placeholder="Tell us about your date, plans, and the kind of coverage you need."><?php echo htmlspecialchars($contactFormValues['message'], ENT_QUOTES, 'UTF-8'); ?></textarea>
-                                    <?php if (isset($contactFormErrors['message'])): ?>
-                                        <small><?php echo htmlspecialchars($contactFormErrors['message'], ENT_QUOTES, 'UTF-8'); ?></small>
-                                    <?php endif; ?>
+                                    <small data-field-error-for="message" <?php echo !isset($contactFormErrors['message']) ? 'hidden' : ''; ?>>
+                                        <?php echo isset($contactFormErrors['message']) ? htmlspecialchars($contactFormErrors['message'], ENT_QUOTES, 'UTF-8') : ''; ?>
+                                    </small>
                                 </label>
 
-                                <button class="button button-secondary contact-submit" type="submit">Send Inquiry</button>
+                                <button class="button button-secondary contact-submit" type="submit" data-contact-submit>Send Inquiry</button>
                             </form>
                         </div>
                     </div>
@@ -1067,6 +1086,9 @@ function youtubeThumbUrl($videoId)
             var mobileMenu = document.querySelector(".mobile-menu");
             var menuOverlay = document.querySelector(".menu-overlay");
             var mobileMenuLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
+            var contactForm = document.querySelector("[data-contact-form]");
+            var contactFormStatus = document.querySelector("[data-contact-form-status]");
+            var contactSubmitButton = document.querySelector("[data-contact-submit]");
             var siteLoader = document.querySelector("[data-site-loader]");
             var heroVideo = document.querySelector(".hero-panel-video");
             var reviewModal = document.querySelector("[data-review-modal]");
@@ -1158,6 +1180,111 @@ function youtubeThumbUrl($videoId)
                     if (window.innerWidth > 980) {
                         closeMobileMenu();
                     }
+                });
+            }
+
+            function setContactFormStatus(message, type) {
+                if (!contactFormStatus) {
+                    return;
+                }
+
+                contactFormStatus.textContent = message || "";
+                contactFormStatus.classList.remove("contact-form-status-success", "contact-form-status-error");
+
+                if (!message) {
+                    contactFormStatus.hidden = true;
+                    return;
+                }
+
+                contactFormStatus.hidden = false;
+
+                if (type) {
+                    contactFormStatus.classList.add("contact-form-status-" + type);
+                }
+            }
+
+            function setContactFieldError(fieldName, message) {
+                var errorNode;
+
+                if (!contactForm) {
+                    return;
+                }
+
+                errorNode = contactForm.querySelector('[data-field-error-for="' + fieldName + '"]');
+
+                if (!errorNode) {
+                    return;
+                }
+
+                errorNode.textContent = message || "";
+                errorNode.hidden = !message;
+            }
+
+            function clearContactFieldErrors() {
+                if (!contactForm) {
+                    return;
+                }
+
+                contactForm.querySelectorAll("[data-field-error-for]").forEach(function (node) {
+                    node.textContent = "";
+                    node.hidden = true;
+                });
+            }
+
+            if (contactForm) {
+                contactForm.addEventListener("submit", function (event) {
+                    var formData = new FormData(contactForm);
+                    var originalButtonText = contactSubmitButton ? contactSubmitButton.textContent : "";
+
+                    event.preventDefault();
+                    clearContactFieldErrors();
+                    setContactFormStatus("", "");
+
+                    if (contactSubmitButton) {
+                        contactSubmitButton.disabled = true;
+                        contactSubmitButton.textContent = "Sending...";
+                    }
+
+                    fetch(window.location.href.split("#")[0], {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest"
+                        }
+                    })
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (result) {
+                            var errors = result && typeof result === "object" ? (result.errors || {}) : {};
+
+                            if (!result || typeof result !== "object") {
+                                throw new Error("Invalid form response");
+                            }
+
+                            setContactFormStatus(result.status || "", result.statusType || "error");
+
+                            Object.keys(errors).forEach(function (fieldName) {
+                                if (fieldName === "mail") {
+                                    return;
+                                }
+
+                                setContactFieldError(fieldName, errors[fieldName]);
+                            });
+
+                            if (result.ok) {
+                                contactForm.reset();
+                            }
+                        })
+                        .catch(function () {
+                            setContactFormStatus("The form could not send right now. Please use phone, WhatsApp, or email.", "error");
+                        })
+                        .finally(function () {
+                            if (contactSubmitButton) {
+                                contactSubmitButton.disabled = false;
+                                contactSubmitButton.textContent = originalButtonText;
+                            }
+                        });
                 });
             }
 
