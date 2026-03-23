@@ -619,6 +619,21 @@ body.has-mobile-menu .brand-logo {
     background: rgba(19, 17, 15, 0.42);
 }
 
+.portfolio-play-overlay span {
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio-play-overlay svg,
+.portfolio-video-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
 .portfolio-film.is-playing .portfolio-play-overlay {
     opacity: 0;
     pointer-events: none;
@@ -665,17 +680,17 @@ body.has-mobile-menu .brand-logo {
 }
 
 .portfolio-video-icon {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .portfolio-video-icon-play,
 .portfolio-video-icon-fullscreen {
-    font-size: 1rem;
-    letter-spacing: 0;
-    text-transform: none;
+    width: 18px;
+    height: 18px;
 }
 
 .portfolio-video-progress {
@@ -872,7 +887,7 @@ body.has-mobile-menu .brand-logo {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(122, 98, 75, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     background: rgba(255, 253, 249, 0.94);
     color: var(--text-main);
@@ -900,6 +915,24 @@ body.has-mobile-menu .brand-logo {
 .portfolio-thumb-nav:focus-visible {
     border-color: var(--text-main);
     background: rgba(255, 255, 255, 0.98);
+}
+
+.portfolio-thumb-nav span,
+.portfolio-coverflow-nav span,
+.testimonial-nav span {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio-thumb-nav svg,
+.portfolio-coverflow-nav svg,
+.testimonial-nav svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .portfolio-thumb-nav-prev:hover,

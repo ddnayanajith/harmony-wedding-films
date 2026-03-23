@@ -454,12 +454,21 @@ function youtubeThumbUrl($videoId)
                             ></div>
 
                             <button class="portfolio-play-overlay" type="button" aria-label="Play video">
-                                <span aria-hidden="true">&#9654;</span>
+                                <span aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path>
+                                    </svg>
+                                </span>
                             </button>
 
                             <div class="portfolio-video-controls" aria-label="Video controls">
                                 <button class="portfolio-video-button" type="button" data-video-action="toggle-play" aria-label="Pause video">
-                                    <span class="portfolio-video-icon portfolio-video-icon-play" data-play-icon aria-hidden="true">&#10074;&#10074;</span>
+                                    <span class="portfolio-video-icon portfolio-video-icon-play" data-play-icon aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="14" y="3" width="5" height="18" rx="1"></rect>
+                                            <rect x="5" y="3" width="5" height="18" rx="1"></rect>
+                                        </svg>
+                                    </span>
                                 </button>
 
                                 <div class="portfolio-video-progress">
@@ -492,7 +501,18 @@ function youtubeThumbUrl($videoId)
                                 </div>
 
                                 <button class="portfolio-video-button" type="button" data-video-action="fullscreen" aria-label="Fullscreen">
-                                    <span class="portfolio-video-icon portfolio-video-icon-fullscreen" aria-hidden="true">&#9974;</span>
+                                    <span class="portfolio-video-icon portfolio-video-icon-fullscreen" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="m15 15 6 6"></path>
+                                            <path d="m15 9 6-6"></path>
+                                            <path d="M21 16v5h-5"></path>
+                                            <path d="M21 8V3h-5"></path>
+                                            <path d="M3 16v5h5"></path>
+                                            <path d="m3 21 6-6"></path>
+                                            <path d="M3 8V3h5"></path>
+                                            <path d="M9 9 3 3"></path>
+                                        </svg>
+                                    </span>
                                 </button>
                             </div>
                         </div>
@@ -500,7 +520,11 @@ function youtubeThumbUrl($videoId)
 
                     <div class="portfolio-thumb-slider">
                         <button class="portfolio-thumb-nav portfolio-thumb-nav-prev" type="button" aria-label="Previous videos">
-                            <span aria-hidden="true">&#8249;</span>
+                            <span aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m15 18-6-6 6-6"></path>
+                                </svg>
+                            </span>
                         </button>
 
                         <div class="portfolio-film-thumbs" role="list" aria-label="Wedding film gallery">
@@ -525,7 +549,11 @@ function youtubeThumbUrl($videoId)
                         </div>
 
                         <button class="portfolio-thumb-nav portfolio-thumb-nav-next" type="button" aria-label="Next videos">
-                            <span aria-hidden="true">&#8250;</span>
+                            <span aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -558,7 +586,11 @@ function youtubeThumbUrl($videoId)
 
                         <div class="portfolio-film portfolio-film-coverflow" data-video-player>
                             <button class="portfolio-coverflow-nav portfolio-coverflow-nav-prev" type="button" aria-label="Previous video">
-                                <span aria-hidden="true">&#8249;</span>
+                                <span aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m15 18-6-6 6-6"></path>
+                                    </svg>
+                                </span>
                             </button>
 
                             <div class="portfolio-film-frame">
@@ -570,12 +602,21 @@ function youtubeThumbUrl($videoId)
                                 ></div>
 
                                 <button class="portfolio-play-overlay" type="button" aria-label="Play video">
-                                    <span aria-hidden="true">&#9654;</span>
+                                    <span aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path>
+                                        </svg>
+                                    </span>
                                 </button>
 
                                 <div class="portfolio-video-controls" aria-label="Video controls">
                                     <button class="portfolio-video-button" type="button" data-video-action="toggle-play" aria-label="Pause video">
-                                        <span class="portfolio-video-icon portfolio-video-icon-play" data-play-icon aria-hidden="true">&#10074;&#10074;</span>
+                                        <span class="portfolio-video-icon portfolio-video-icon-play" data-play-icon aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="14" y="3" width="5" height="18" rx="1"></rect>
+                                                <rect x="5" y="3" width="5" height="18" rx="1"></rect>
+                                            </svg>
+                                        </span>
                                     </button>
 
                                     <div class="portfolio-video-progress">
@@ -608,13 +649,28 @@ function youtubeThumbUrl($videoId)
                                     </div>
 
                                     <button class="portfolio-video-button" type="button" data-video-action="fullscreen" aria-label="Fullscreen">
-                                        <span class="portfolio-video-icon portfolio-video-icon-fullscreen" aria-hidden="true">&#9974;</span>
+                                        <span class="portfolio-video-icon portfolio-video-icon-fullscreen" aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="m15 15 6 6"></path>
+                                                <path d="m15 9 6-6"></path>
+                                                <path d="M21 16v5h-5"></path>
+                                                <path d="M21 8V3h-5"></path>
+                                                <path d="M3 16v5h5"></path>
+                                                <path d="m3 21 6-6"></path>
+                                                <path d="M3 8V3h5"></path>
+                                                <path d="M9 9 3 3"></path>
+                                            </svg>
+                                        </span>
                                     </button>
                                 </div>
                             </div>
 
                             <button class="portfolio-coverflow-nav portfolio-coverflow-nav-next" type="button" aria-label="Next video">
-                                <span aria-hidden="true">&#8250;</span>
+                                <span aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m9 18 6-6-6-6"></path>
+                                    </svg>
+                                </span>
                             </button>
                         </div>
                     </div>
@@ -728,7 +784,11 @@ function youtubeThumbUrl($videoId)
 
                 <div class="testimonials-carousel" data-review-carousel>
                     <button class="testimonial-nav testimonial-nav-prev" type="button" aria-label="Previous reviews">
-                        <span aria-hidden="true">&#8249;</span>
+                        <span aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6"></path>
+                            </svg>
+                        </span>
                     </button>
 
                     <div class="testimonials-track" data-review-track>
@@ -756,7 +816,11 @@ function youtubeThumbUrl($videoId)
                     </div>
 
                     <button class="testimonial-nav testimonial-nav-next" type="button" aria-label="Next reviews">
-                        <span aria-hidden="true">&#8250;</span>
+                        <span aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6"></path>
+                            </svg>
+                        </span>
                     </button>
                 </div>
             </div>
@@ -1106,6 +1170,8 @@ function youtubeThumbUrl($videoId)
             }
 
             var youtubeReadyQueue = window.__youtubeReadyQueue || [];
+            var portfolioPlaySvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>';
+            var portfolioPauseSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="3" width="5" height="18" rx="1"></rect><rect x="5" y="3" width="5" height="18" rx="1"></rect></svg>';
 
             window.__youtubeReadyQueue = youtubeReadyQueue;
 
@@ -1191,7 +1257,7 @@ function youtubeThumbUrl($videoId)
                     overlayButton.setAttribute("aria-label", isPlaying ? "Pause video" : "Play video");
 
                     if (playIcon) {
-                        playIcon.innerHTML = isPlaying ? "&#10074;&#10074;" : "&#9654;";
+                        playIcon.innerHTML = isPlaying ? portfolioPauseSvg : portfolioPlaySvg;
                     }
                 }
 
