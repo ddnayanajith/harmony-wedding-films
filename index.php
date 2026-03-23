@@ -228,22 +228,84 @@ function youtubeThumbUrl($videoId)
                 >
             </a>
 
-            <nav class="main-nav" aria-label="Main navigation">
-                <a href="#hero">Home</a>
-                <a href="#about">About</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#reviews">Reviews</a>
-                <a href="#contact">Contact</a>
-            </nav>
+            <button
+                class="menu-trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                aria-label="Toggle navigation"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-            <a class="button button-primary header-cta" href="#contact">
-                <svg class="header-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <div class="header-flyout">
+                <nav class="main-nav" aria-label="Main navigation">
+                    <a href="#hero">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#reviews">Reviews</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+
+                <a class="button button-primary header-cta" href="#contact">
+                    <svg class="header-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
+                    </svg>
+                    <span>Appointment Now</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <nav class="menu-links" aria-label="Mobile navigation">
+            <a href="#hero">Home</a>
+            <a href="#about">About</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="menu-footer">
+            <a class="menu-cta" href="#contact">
+                <svg class="menu-cta-icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
                 </svg>
                 <span>Appointment Now</span>
             </a>
+            <div class="menu-socials" aria-label="Mobile social links">
+                <a class="menu-social-link" href="https://wa.me/94<?php echo htmlspecialchars(substr(preg_replace('/\D+/', '', $whatsAppNumber), -9), ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.5 11.4c0 4.7-3.8 8.5-8.5 8.5-1.5 0-2.9-.4-4.2-1.1L3.5 20l1.3-4.1A8.4 8.4 0 0 1 3.5 11.4C3.5 6.7 7.3 3 12 3s8.5 3.7 8.5 8.4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9.1 8.6c-.2-.4-.5-.4-.8-.4h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-.9 2.3.1 1.3 1 2.6 1.1 2.7.1.2 1.9 3 4.8 4 .7.3 1.2.4 1.6.2.5-.1 1.5-.7 1.7-1.4.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.7-.4-.4-.2-1.1-.5-1.3-.6-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.4.1-.6l.4-.4c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-.8-1.6Z" fill="currentColor" stroke="none"/>
+                    </svg>
+                </a>
+                <a class="menu-social-link" href="mailto:<?php echo htmlspecialchars($contactEmail, ENT_QUOTES, 'UTF-8'); ?>" aria-label="Email">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 6.5h16A1.5 1.5 0 0 1 21.5 8v8A1.5 1.5 0 0 1 20 17.5H4A1.5 1.5 0 0 1 2.5 16V8A1.5 1.5 0 0 1 4 6.5Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                        <path d="m4 8 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a class="menu-social-link" href="<?php echo htmlspecialchars($instagramUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                        <circle cx="12" cy="12" r="3.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                        <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a class="menu-social-link" href="<?php echo htmlspecialchars($facebookUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M13.4 20.5v-7h2.3l.4-2.7h-2.7V9.1c0-.8.2-1.3 1.3-1.3h1.5V5.4c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v2h-2.3v2.7h2.3v7h2.3Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
         </div>
-    </header>
+    </aside>
 
     <main>
         <section class="hero-section" id="hero">
@@ -868,6 +930,10 @@ function youtubeThumbUrl($videoId)
         document.addEventListener("DOMContentLoaded", function () {
             var header = document.querySelector(".site-header");
             var body = document.body;
+            var menuToggle = document.querySelector(".menu-trigger");
+            var mobileMenu = document.querySelector(".mobile-menu");
+            var menuOverlay = document.querySelector(".menu-overlay");
+            var mobileMenuLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
             var siteLoader = document.querySelector("[data-site-loader]");
             var heroVideo = document.querySelector(".hero-panel-video");
             var reviewModal = document.querySelector("[data-review-modal]");
@@ -918,6 +984,49 @@ function youtubeThumbUrl($videoId)
             }
 
             window.setTimeout(hideSiteLoader, 2600);
+
+            function setMobileMenuState(isOpen) {
+                if (!menuToggle || !mobileMenu || !menuOverlay) {
+                    return;
+                }
+
+                menuToggle.classList.toggle("is-open", isOpen);
+                menuOverlay.classList.toggle("is-open", isOpen);
+                mobileMenu.classList.toggle("is-open", isOpen);
+                menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+                mobileMenu.setAttribute("aria-hidden", isOpen ? "false" : "true");
+                body.classList.toggle("has-mobile-menu", isOpen);
+
+                if (lenis) {
+                    if (isOpen) {
+                        lenis.stop();
+                    } else if (!body.classList.contains("is-loading") && !body.classList.contains("has-review-modal")) {
+                        lenis.start();
+                    }
+                }
+            }
+
+            function closeMobileMenu() {
+                setMobileMenuState(false);
+            }
+
+            if (menuToggle && mobileMenu && menuOverlay) {
+                menuToggle.addEventListener("click", function () {
+                    setMobileMenuState(!menuToggle.classList.contains("is-open"));
+                });
+
+                menuOverlay.addEventListener("click", closeMobileMenu);
+
+                mobileMenuLinks.forEach(function (link) {
+                    link.addEventListener("click", closeMobileMenu);
+                });
+
+                window.addEventListener("resize", function () {
+                    if (window.innerWidth > 980) {
+                        closeMobileMenu();
+                    }
+                });
+            }
 
             function formatVideoTime(seconds) {
                 var totalSeconds = Number.isFinite(seconds) ? Math.max(0, Math.floor(seconds)) : 0;
