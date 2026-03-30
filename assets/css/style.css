@@ -1348,6 +1348,15 @@ body.has-mobile-menu .brand-logo {
     text-align: center;
 }
 
+.testimonials-heading .section-copy {
+    text-align: center;
+}
+
+.testimonials-heading .section-copy .eyebrow,
+.testimonials-heading .section-copy h2 {
+    margin-inline: auto;
+}
+
 .testimonials-carousel {
     position: relative;
 }
